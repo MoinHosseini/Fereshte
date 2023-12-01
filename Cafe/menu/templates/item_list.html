@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Book List</title>
+    <style>
+        .footer {
+            width: 100%;
+            margin-top: auto;
+            position: absolute;
+            bottom: 0;
+        }
+
+        /* Apply a grid layout with 5 columns for the cards */
+        .card-list {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 columns with equal width */
+            gap: 20px; /* Add some gap between columns */
+        }
+
+        /* Adjust the card layout */
+        .card {
+            display: flex;
+            margin: 10px; 
+            min-height: 200px;
+            flex-direction: column; /* Stack content vertically */
+            height: 100%; /* Set a fixed height for cards */
+            box-sizing: border-box; /* Include padding in dimensions */
+            flex: 1; /* Distribute equal space among items in the row */
+        }
+
+        /* Ensure images take 80% of card height */
+        .card-img-top {
+            width: 100%;
+            height: 80%;
+            object-fit: cover; /* Resize image to fill 80% */
+        }
+
+        /* Style the content in the remaining 20% */
+        .card-body {
+            flex-grow: 1; /* Expand to fill remaining space */
+            padding: 10px;
+        }
+
+        /* Media query for responsive design */
+        @media (max-width: 992px) {
+            .card-list {
+                display: flex; 
+                flex-wrap: wrap;
+                grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+                grid-template-columns: repeat(4, 1fr); /* 4 columns for medium screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-list {
+                grid-template-columns: repeat(3, 1fr); /* 3 columns for small screens */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .card-list {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns for extra small screens */
+            }
+        }
+        @media (max-width: 768px) {
+            .card-list {
+              grid-template-columns: 1fr; 
+            }
+          }
+          .category-nav a {
+            display: block;
+            padding: 10px;
+            color: #fff;
+            background: #333;
+          }
+          
+          .category-nav a.active {
+            background: #666;
+          }
+    </style>
+</head>
+
+<body>
+    {% comment %} <div class="container">
+        <h1>Menu</h1>
+        <div class="category-nav">
+            {% for category in items_by_category %}
+              <a href="#{{ category.name|slugify }}">
+                {{ category.name }}
+              </a> 
+            {% endfor %}
+          </div>
+        <div class="card-list">
+            {% for category in items_by_category %}
+                <h2 id="{{ category.name|slugify }}"> 
+                  {% for item in category.items %}
+                  <div class="card">
+                    <div class="card mb-4 shadow-sm">
+                        {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}" class="card-img-top">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.name }}</h5>
+                            <p class="card-text">{{ item.description }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    {# Add buttons or links if needed #}
+                                </div>
+                                <small class="text-muted">{{ item.price }} Tooman</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+                    {% endfor %}
+         </div>
+        </div>
+    </div>
+    <hr> {% endcomment %}
+    <div class="container">
+
+        <h1>Menu</h1>
+      
+        <div class="category-nav">
+          {% for category in items_by_category %}
+            <a href="#{{ category.name|slugify }}">{{ category.name }}</a>
+          {% endfor %}
+        </div>
+      
+        {% for category in items_by_category %}
+      
+          <h2 id="{{ category.name|slugify }}">{{ category.name }}</h2>
+      
+          <div class="card-columns">
+      
+            {% for item in category.items %}
+            
+              <div class="card">
+      
+                {% if item.image %}
+                  <img src="{{ item.image.url }}" class="card-img-top">
+                {% endif %}
+      
+                <div class="card-body">
+      
+                  <h5 class="card-title">{{ item.name }}</h5>
+                  
+                  <p class="card-text">{{ item.description }}</p>
+                  
+                  <small class="text-muted">{{ item.price }} Tooman</small>
+      
+                </div>
+      
+              </div>
+            
+            {% endfor %}
+      
+          </div>
+      
+        {% endfor %}
+      
+      </div>
+    
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
