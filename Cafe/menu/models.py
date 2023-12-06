@@ -14,6 +14,11 @@ class Item(models.Model):
     description = models.TextField(max_length=1023)
     image = models.ImageField(upload_to='pics/', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    likes = models.IntegerField(default = 0)
+    dislikes = models.IntegerField(default = 0)
+    availablity = models.BooleanField(default = True)
+    discount = models.IntegerField(default = 0)
+
 
     def __str__(self):
         return self.name
